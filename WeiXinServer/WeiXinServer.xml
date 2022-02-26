@@ -1,0 +1,695 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>WeiXinServer</name>
+    </assembly>
+    <members>
+        <member name="T:WeiXinServer.Controllers.AccountController">
+            <summary>
+            账户管理
+            </summary>
+        </member>
+        <member name="F:WeiXinServer.Controllers.AccountController.weiXinApiUrl">
+            <summary>
+            微信公众号ApiUrl
+            </summary>
+        </member>
+        <member name="F:WeiXinServer.Controllers.AccountController.weiXinMpUrl">
+            <summary>
+            微信公众号MpUrl
+            </summary>
+        </member>
+        <member name="F:WeiXinServer.Controllers.AccountController.appID">
+            <summary>
+            微信公众号AppID
+            </summary>
+        </member>
+        <member name="F:WeiXinServer.Controllers.AccountController.appSecret">
+            <summary>
+            微信公众号AppSecret
+            </summary>
+        </member>
+        <member name="F:WeiXinServer.Controllers.AccountController.access_token">
+            <summary>
+            微信公众号AccessToken
+            </summary>
+        </member>
+        <member name="M:WeiXinServer.Controllers.AccountController.GetAccessToken">
+            <summary>
+            获取access_token
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:WeiXinServer.Controllers.AccountController.GetApiDomainIP">
+            <summary>
+            获取域名IP
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:WeiXinServer.Controllers.AccountController.CreateQRCode">
+            <summary>
+            创建二维码ticket
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:WeiXinServer.Controllers.AccountController.ShowQRCode">
+            <summary>
+            换取二维码
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:WeiXinServer.Controllers.AccountController.GetAllQRCode">
+            <summary>
+            获取所有二维码
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:WeiXinServer.Controllers.HomeController">
+            <summary>
+            首页
+            </summary>
+        </member>
+        <member name="M:WeiXinServer.Controllers.HomeController.Index">
+            <summary>
+            首页
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:WeiXinServer.Controllers.MenuController">
+            <summary>
+            菜单管理
+            </summary>
+        </member>
+        <member name="F:WeiXinServer.Controllers.MenuController.weiXinApiUrl">
+            <summary>
+            微信公众号ApiUrl
+            </summary>
+        </member>
+        <member name="F:WeiXinServer.Controllers.MenuController.access_token">
+            <summary>
+            微信公众号AccessToken
+            </summary>
+        </member>
+        <member name="M:WeiXinServer.Controllers.MenuController.CreateMenu">
+            <summary>
+            创建自定义菜单
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:WeiXinServer.Controllers.MenuController.GetMenu">
+            <summary>
+            获取自定义菜单配置
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:WeiXinServer.Controllers.MessageController">
+            <summary>
+            消息管理
+            </summary>
+        </member>
+        <member name="F:WeiXinServer.Controllers.MessageController.weiXinApiUrl">
+            <summary>
+            微信公众号ApiUrl
+            </summary>
+        </member>
+        <member name="F:WeiXinServer.Controllers.MessageController.access_token">
+            <summary>
+            微信公众号AccessToken
+            </summary>
+        </member>
+        <member name="M:WeiXinServer.Controllers.MessageController.SendCustomMessage">
+            <summary>
+            发送客服消息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:WeiXinServer.Controllers.MessageController.SendTemplateMessage">
+            <summary>
+            发送模板消息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:WeiXinServer.Controllers.UserController">
+            <summary>
+            用户管理
+            </summary>
+        </member>
+        <member name="F:WeiXinServer.Controllers.UserController.weiXinApiUrl">
+            <summary>
+            微信公众号ApiUrl
+            </summary>
+        </member>
+        <member name="F:WeiXinServer.Controllers.UserController.access_token">
+            <summary>
+            微信公众号AccessToken
+            </summary>
+        </member>
+        <member name="M:WeiXinServer.Controllers.UserController.GetUserList">
+            <summary>
+            获取关注者列表
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:WeiXinServer.Controllers.UserController.GetUserInfo">
+            <summary>
+            获取用户基本信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:WeiXinServer.AppSettings">
+            <summary>
+            配置文件管理
+            </summary>
+        </member>
+        <member name="M:WeiXinServer.AppSettings.GetAppSettings(System.String[])">
+            <summary>
+            获取配置文件
+            </summary>
+            <param name="sections">配置</param>
+            <returns></returns>
+        </member>
+        <member name="M:WeiXinServer.AppSettings.SaveAppSettings(System.String,System.String)">
+            <summary>
+            保存配置文件
+            </summary>
+            <param name="sections">配置</param>
+            <returns></returns>
+        </member>
+        <member name="M:WeiXinServer.Helper.HttpRequest.Get(System.String,System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            Get请求
+            </summary>
+            <param name="url">地址</param>
+            <param name="dic">请求参数定义</param>
+            <returns></returns>
+        </member>
+        <member name="M:WeiXinServer.Helper.HttpRequest.Post(System.String,System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            Post请求
+            </summary>
+            <param name="url">请求地址</param>
+            <param name="dic">请求参数定义</param>
+            <returns></returns>
+        </member>
+        <member name="M:WeiXinServer.Helper.HttpRequest.Post(System.String,System.String)">
+            <summary>
+            Post请求
+            </summary>
+            <param name="url">请求地址</param>
+            <param name="dic">请求参数定义</param>
+            <returns></returns>
+        </member>
+        <member name="T:WeiXinServer.Model.GetAccessTokenRespond">
+            <summary>
+            获取微信公众号access_token响应结果
+            </summary>
+        </member>
+        <member name="P:WeiXinServer.Model.GetApiDomainIPRespond.ip_list">
+            <summary>
+            域名IP列表
+            </summary>
+        </member>
+        <member name="T:WeiXinServer.Model.Scene">
+            <summary>
+            场景值
+            </summary>
+        </member>
+        <member name="P:WeiXinServer.Model.Scene.scene_id">
+            <summary>
+            场景值ID，临时二维码时为32位非0整型，永久二维码时最大值为100000（目前参数只支持1--100000）
+            </summary>
+        </member>
+        <member name="P:WeiXinServer.Model.Scene.scene_str">
+            <summary>
+            场景值ID（字符串形式的ID），字符串类型，长度限制为1到64
+            </summary>
+        </member>
+        <member name="T:WeiXinServer.Model.Action_info">
+            <summary>
+            二维码详细信息
+            </summary>
+        </member>
+        <member name="P:WeiXinServer.Model.Action_info.scene">
+            <summary>
+            场景值
+            </summary>
+        </member>
+        <member name="T:WeiXinServer.Model.CreateQRCodeRequest">
+            <summary>
+            生成带参数二维码请求参数
+            </summary>
+        </member>
+        <member name="P:WeiXinServer.Model.CreateQRCodeRequest.expire_seconds">
+            <summary>
+            该二维码有效时间，以秒为单位。 最大不超过2592000（即30天），此字段如果不填，则默认有效期为60秒。
+            </summary>
+        </member>
+        <member name="P:WeiXinServer.Model.CreateQRCodeRequest.action_name">
+            <summary>
+            二维码类型，QR_SCENE为临时的整型参数值，QR_STR_SCENE为临时的字符串参数值，
+            QR_LIMIT_SCENE为永久的整型参数值，QR_LIMIT_STR_SCENE为永久的字符串参数值
+            </summary>
+        </member>
+        <member name="P:WeiXinServer.Model.CreateQRCodeRequest.action_info">
+            <summary>
+            二维码详细信息
+            </summary>
+        </member>
+        <member name="T:WeiXinServer.Model.CreateQRCodeRespond">
+            <summary>
+            生成带参数二维码响应结果
+            </summary>
+        </member>
+        <member name="P:WeiXinServer.Model.CreateQRCodeRespond.ticket">
+            <summary>
+            获取的二维码ticket，凭借此ticket可以在有效时间内换取二维码。
+            </summary>
+        </member>
+        <member name="P:WeiXinServer.Model.CreateQRCodeRespond.expire_seconds">
+            <summary>
+            该二维码有效时间，以秒为单位。 最大不超过2592000（即30天）。
+            </summary>
+        </member>
+        <member name="P:WeiXinServer.Model.CreateQRCodeRespond.url">
+            <summary>
+            二维码图片解析后的地址，开发者可根据该地址自行生成需要的二维码图片
+            </summary>
+        </member>
+        <member name="P:WeiXinServer.Model.CreateQRCodeRespond.QrCodeUrl">
+            <summary>
+            二维码拼接地址
+            </summary>
+        </member>
+        <member name="T:WeiXinServer.Model.Sub_buttonItem">
+            <summary>
+            二级菜单数组，个数应为1~5个
+            </summary>
+        </member>
+        <member name="P:WeiXinServer.Model.Sub_buttonItem.type">
+            <summary>
+            菜单的响应动作类型，view表示网页类型，click表示点击类型，miniprogram表示小程序类型
+            </summary>
+        </member>
+        <member name="P:WeiXinServer.Model.Sub_buttonItem.name">
+            <summary>
+            菜单标题，不超过16个字节，子菜单不超过60个字节
+            </summary>
+        </member>
+        <member name="P:WeiXinServer.Model.Sub_buttonItem.key">
+            <summary>
+            菜单KEY值，用于消息接口推送，不超过128字节
+            click等点击类型必须
+            </summary>
+        </member>
+        <member name="P:WeiXinServer.Model.Sub_buttonItem.url">
+            <summary>
+            网页 链接，用户点击菜单可打开链接，不超过1024字节。 type为miniprogram时，不支持小程序的老版本客户端将打开本url。
+            view、miniprogram类型必须
+            </summary>
+        </member>
+        <member name="P:WeiXinServer.Model.Sub_buttonItem.media_id">
+            <summary>
+            调用新增永久素材接口返回的合法media_id
+            media_id类型和view_limited类型必须
+            </summary>
+        </member>
+        <member name="P:WeiXinServer.Model.Sub_buttonItem.appid">
+            <summary>
+            小程序的appid（仅认证公众号可配置）
+            miniprogram类型必须
+            </summary>
+        </member>
+        <member name="P:WeiXinServer.Model.Sub_buttonItem.pagepath">
+            <summary>
+            小程序的页面路径
+            miniprogram类型必须 
+            </summary>
+        </member>
+        <member name="P:WeiXinServer.Model.Sub_buttonItem.article_id">
+            <summary>
+            发布后获得的合法 article_id
+            article_id类型和article_view_limited类型必须 
+            </summary>
+        </member>
+        <member name="P:WeiXinServer.Model.Sub_buttonItem.sub_button">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:WeiXinServer.Model.ButtonItem">
+            <summary>
+            一级菜单数组，个数应为1~3个
+            </summary>
+        </member>
+        <member name="P:WeiXinServer.Model.ButtonItem.name">
+            <summary>
+            菜单标题，不超过16个字节，子菜单不超过60个字节
+            </summary>
+        </member>
+        <member name="P:WeiXinServer.Model.ButtonItem.sub_button">
+            <summary>
+            二级菜单数组，个数应为1~5个
+            </summary>
+        </member>
+        <member name="T:WeiXinServer.Model.CreateMenuRequest">
+            <summary>
+            创建自定义菜单请求参数
+            </summary>
+        </member>
+        <member name="P:WeiXinServer.Model.CreateMenuRequest.button">
+            <summary>
+            一级菜单数组，个数应为1~3个
+            </summary>
+        </member>
+        <member name="P:WeiXinServer.Model.Matchrule.tag_id">
+            <summary>
+            用户标签的id，可通过用户标签管理接口获取
+            </summary>
+        </member>
+        <member name="P:WeiXinServer.Model.Matchrule.sex">
+            <summary>
+            性别：男（1）女（2），不填则不做匹配
+            已废除
+            </summary>
+        </member>
+        <member name="P:WeiXinServer.Model.Matchrule.client_platform_type">
+            <summary>
+            客户端版本，当前只具体到系统型号：IOS(1), Android(2),Others(3)，不填则不做匹配
+            </summary>
+        </member>
+        <member name="P:WeiXinServer.Model.Matchrule.country">
+            <summary>
+            国家信息，是用户在微信中设置的地区，具体请参考地区信息表
+            已废除
+            </summary>
+        </member>
+        <member name="P:WeiXinServer.Model.Matchrule.province">
+            <summary>
+            省份信息，是用户在微信中设置的地区，具体请参考地区信息表
+            已废除
+            </summary>
+        </member>
+        <member name="P:WeiXinServer.Model.Matchrule.city">
+            <summary>
+            城市信息，是用户在微信中设置的地区，具体请参考地区信息表
+            已废除
+            </summary>
+        </member>
+        <member name="P:WeiXinServer.Model.Matchrule.language">
+            <summary>
+            语言信息，是用户在微信中设置的语言，具体请参考语言表：
+            1、简体中文 "zh_CN" 2、繁体中文TW "zh_TW" 3、繁体中文HK "zh_HK" 4、英文 "en"
+            5、印尼 "id" 6、马来 "ms" 7、西班牙 "es" 8、韩国 "ko" 9、意大利 "it"
+            10、日本 "ja" 11、波兰 "pl" 12、葡萄牙 "pt" 13、俄国 "ru" 14、泰文 "th"
+            15、越南 "vi" 16、阿拉伯语 "ar" 17、北印度 "hi" 18、希伯来 "he" 19、土耳其 "tr"
+            20、德语 "de" 21、法语 "fr"
+            已废除
+            </summary>
+        </member>
+        <member name="T:WeiXinServer.Model.Menu">
+            <summary>
+            默认菜单
+            </summary>
+        </member>
+        <member name="P:WeiXinServer.Model.Menu.button">
+            <summary>
+            一级菜单数组，个数应为1~3个
+            </summary>
+        </member>
+        <member name="T:WeiXinServer.Model.GetMenuRespond">
+            <summary>
+            获取自定义菜单配置响应结果
+            </summary>
+        </member>
+        <member name="P:WeiXinServer.Model.GetMenuRespond.menu">
+            <summary>
+            默认菜单
+            </summary>
+        </member>
+        <member name="T:WeiXinServer.Model.OpenIDList">
+            <summary>
+            列表数据，OPENID的列表
+            </summary>
+        </member>
+        <member name="P:WeiXinServer.Model.OpenIDList.openid">
+            <summary>
+            列表数据，OPENID的列表
+            </summary>
+        </member>
+        <member name="T:WeiXinServer.Model.GetFocusUserListRespond">
+            <summary>
+            获取关注者列表响应结果
+            </summary>
+        </member>
+        <member name="P:WeiXinServer.Model.GetFocusUserListRespond.total">
+            <summary>
+            关注该公众账号的总用户数
+            </summary>
+        </member>
+        <member name="P:WeiXinServer.Model.GetFocusUserListRespond.count">
+            <summary>
+            拉取的OPENID个数，最大值为10000
+            </summary>
+        </member>
+        <member name="P:WeiXinServer.Model.GetFocusUserListRespond.data">
+            <summary>
+            列表数据，OPENID的列表
+            </summary>
+        </member>
+        <member name="P:WeiXinServer.Model.GetFocusUserListRespond.next_openid">
+            <summary>
+            拉取列表的最后一个用户的OPENID
+            </summary>
+        </member>
+        <member name="T:WeiXinServer.Model.GetFocusUserInfoRespond">
+            <summary>
+            获取用户基本信息响应结果
+            </summary>
+        </member>
+        <member name="P:WeiXinServer.Model.GetFocusUserInfoRespond.subscribe">
+            <summary>
+            用户是否订阅该公众号标识，值为0时，代表此用户没有关注该公众号，拉取不到其余信息。
+            </summary>
+        </member>
+        <member name="P:WeiXinServer.Model.GetFocusUserInfoRespond.openid">
+            <summary>
+            用户的标识，对当前公众号唯一
+            </summary>
+        </member>
+        <member name="P:WeiXinServer.Model.GetFocusUserInfoRespond.language">
+            <summary>
+            用户的语言，简体中文为zh_CN
+            </summary>
+        </member>
+        <member name="P:WeiXinServer.Model.GetFocusUserInfoRespond.subscribe_time">
+            <summary>
+            用户关注时间，为时间戳。如果用户曾多次关注，则取最后关注时间
+            </summary>
+        </member>
+        <member name="P:WeiXinServer.Model.GetFocusUserInfoRespond.unionid">
+            <summary>
+            只有在用户将公众号绑定到微信开放平台帐号后，才会出现该字段。
+            </summary>
+        </member>
+        <member name="P:WeiXinServer.Model.GetFocusUserInfoRespond.remark">
+            <summary>
+            公众号运营者对粉丝的备注，公众号运营者可在微信公众平台用户管理界面对粉丝添加备注
+            </summary>
+        </member>
+        <member name="P:WeiXinServer.Model.GetFocusUserInfoRespond.groupid">
+            <summary>
+            用户所在的分组ID（兼容旧的用户分组接口）
+            </summary>
+        </member>
+        <member name="P:WeiXinServer.Model.GetFocusUserInfoRespond.tagid_list">
+            <summary>
+            用户被打上的标签ID列表
+            </summary>
+        </member>
+        <member name="P:WeiXinServer.Model.GetFocusUserInfoRespond.subscribe_scene">
+            <summary>
+            返回用户关注的渠道来源，ADD_SCENE_SEARCH 公众号搜索，ADD_SCENE_ACCOUNT_MIGRATION 公众号迁移，
+            ADD_SCENE_PROFILE_CARD 名片分享，ADD_SCENE_QR_CODE 扫描二维码，ADD_SCENE_PROFILE_LINK 图文页内名称点击，
+            ADD_SCENE_PROFILE_ITEM 图文页右上角菜单，ADD_SCENE_PAID 支付后关注，ADD_SCENE_WECHAT_ADVERTISEMENT 微信广告，
+            ADD_SCENE_REPRINT 他人转载 ,ADD_SCENE_LIVESTREAM 视频号直播，ADD_SCENE_CHANNELS 视频号 , ADD_SCENE_OTHERS 其他
+            </summary>
+        </member>
+        <member name="P:WeiXinServer.Model.GetFocusUserInfoRespond.qr_scene">
+            <summary>
+            二维码扫码场景（开发者自定义）
+            </summary>
+        </member>
+        <member name="P:WeiXinServer.Model.GetFocusUserInfoRespond.qr_scene_str">
+            <summary>
+            二维码扫码场景描述（开发者自定义）
+            </summary>
+        </member>
+        <member name="T:WeiXinServer.Model.MessageRequest">
+            <summary>
+            文本消息内容
+            </summary>
+        </member>
+        <member name="P:WeiXinServer.Model.MessageRequest.content">
+            <summary>
+            文本消息内容
+            </summary>
+        </member>
+        <member name="T:WeiXinServer.Model.SendMessageRequest">
+            <summary>
+            发送客服消息请求参数
+            </summary>
+        </member>
+        <member name="P:WeiXinServer.Model.SendMessageRequest.touser">
+            <summary>
+            普通用户openid
+            </summary>
+        </member>
+        <member name="P:WeiXinServer.Model.SendMessageRequest.msgtype">
+            <summary>
+            消息类型，文本为text，图片为image，语音为voice，视频消息为video，音乐消息为music，
+            图文消息（点击跳转到外链）为news，图文消息（点击跳转到图文消息页面）为mpnews，
+            卡券为wxcard，小程序为miniprogrampage
+            </summary>
+        </member>
+        <member name="P:WeiXinServer.Model.SendMessageRequest.text">
+            <summary>
+            文本消息内容
+            </summary>
+        </member>
+        <member name="P:WeiXinServer.Model.User.value">
+            <summary>
+            黄先生
+            </summary>
+        </member>
+        <member name="P:WeiXinServer.Model.User.color">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:WeiXinServer.Model.Date.value">
+            <summary>
+            06月07日 19时24分
+            </summary>
+        </member>
+        <member name="P:WeiXinServer.Model.Date.color">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:WeiXinServer.Model.CardNumber.value">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:WeiXinServer.Model.CardNumber.color">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:WeiXinServer.Model.DealType.value">
+            <summary>
+            消费
+            </summary>
+        </member>
+        <member name="P:WeiXinServer.Model.DealType.color">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:WeiXinServer.Model.Money.value">
+            <summary>
+            人民币260.00元
+            </summary>
+        </member>
+        <member name="P:WeiXinServer.Model.Money.color">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:WeiXinServer.Model.DeadTime.value">
+            <summary>
+            06月07日19时24分
+            </summary>
+        </member>
+        <member name="P:WeiXinServer.Model.DeadTime.color">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:WeiXinServer.Model.Left.value">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:WeiXinServer.Model.Left.color">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:WeiXinServer.Model.TemplateMessageRequest.User">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:WeiXinServer.Model.TemplateMessageRequest.Date">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:WeiXinServer.Model.TemplateMessageRequest.CardNumber">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:WeiXinServer.Model.TemplateMessageRequest.DealType">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:WeiXinServer.Model.TemplateMessageRequest.Money">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:WeiXinServer.Model.TemplateMessageRequest.DeadTime">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:WeiXinServer.Model.TemplateMessageRequest.Left">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:WeiXinServer.Model.SendTemplateMessageRequest">
+            <summary>
+            发送模板消息请求参数
+            </summary>
+        </member>
+        <member name="P:WeiXinServer.Model.SendTemplateMessageRequest.touser">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:WeiXinServer.Model.SendTemplateMessageRequest.template_id">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:WeiXinServer.Model.SendTemplateMessageRequest.url">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:WeiXinServer.Model.SendTemplateMessageRequest.topcolor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:WeiXinServer.Model.SendTemplateMessageRequest.data">
+            <summary>
+            
+            </summary>
+        </member>
+    </members>
+</doc>

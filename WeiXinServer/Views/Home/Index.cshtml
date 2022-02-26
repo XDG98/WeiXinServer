@@ -1,0 +1,47 @@
+﻿@{
+    <div>
+        <h3>账户管理</h3>
+        @Html.ActionLink("获取access_token", "GetAccessToken", "Account")
+        @Html.ActionLink("获取域名IP", "GetApiDomainIP", "Account")
+        @Html.ActionLink("创建二维码ticket(前往接口文档请求)","Swagger","Home")
+        @Html.ActionLink("换取二维码", "ShowQRCode", "Account")
+        @Html.ActionLink("获取所有二维码", "GetAllQRCode", "Account")
+        @Html.ActionLink("天气Api", "Api", "Home")
+        @Html.ActionLink("验证服务器", "WechatValidation", "Account")
+    </div>
+
+    <div>
+        <h3>自定义菜单</h3>
+        @Html.ActionLink("创建自定义菜单(前往接口文档请求)", "Swagger", "Home")
+        @Html.ActionLink("获取自定义菜单配置", "GetMenu", "Menu")
+    </div>
+
+    <div>
+        <h3>用户管理</h3>
+        @Html.ActionLink("获取关注者列表", "GetUserList", "User")
+        @Html.ActionLink("获取用户基本信息", "GetUserInfo", "User")
+    </div>
+
+    <div>
+        <h3>消息管理</h3>
+        @Html.ActionLink("发送客服消息(前往接口文档请求)", "Swagger", "Home")
+        @Html.ActionLink("发送模板消息(前往接口文档请求)", "Swagger", "Home")
+    </div>
+
+    <div style="border:solid yellow 1px;">
+        <h3>Content</h3>
+        @{
+            <a href="@WeiXinServer.AppSettings.GetAppSettings("DefaultUrl")">a标签</a>
+            <br />
+
+            Dictionary<string, WeiXinServer.Model.AccountModel.CreateQRCodeRespond> qrCodeDic = ViewData["QrCodeDic"] as Dictionary<string, WeiXinServer.Model.AccountModel.CreateQRCodeRespond>;
+            foreach (var item in qrCodeDic)
+            {
+                string url = $"{WeiXinServer.AppSettings.GetAppSettings("WeiXinMpUrl")}/showqrcode?ticket={item.Value.ticket}";
+                <a href="@url">二维码生成时间：@item.Value.CreateTime</a>
+                <br />
+            }
+        }
+    </div>
+}
+
