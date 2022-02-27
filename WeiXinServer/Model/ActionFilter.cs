@@ -5,9 +5,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Concurrent;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Threading.Tasks;
 using WeiXinServer;
 
 namespace KJJOA.Model
@@ -108,15 +110,46 @@ namespace KJJOA.Model
         {
             StringBuilder stringBuilder = new StringBuilder();
 
-            if (exception != null) stringBuilder.Append($"\n******异常******：{exception.Message}");
-            stringBuilder.Append($"\n请求时间：{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:fff")}");
-            stringBuilder.Append($"\n请求方法：{context.Request.Method}");
-            stringBuilder.Append($"\n请求路径：{context.Request.Path}");
-            stringBuilder.Append($"\n请求参数：{context.Request.Body}");
-            stringBuilder.Append($"\n请求IP：{context.Connection.RemoteIpAddress.MapToIPv4()}");
-            
+            stringBuilder.Append($"------------Log------------");
+            stringBuilder.Append($"\n      RequestTime：{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:fff")}");
+            stringBuilder.Append($"\n      RequestMethod：{context.Request.Method}");
+            stringBuilder.Append($"\n      RequestPath：{context.Request.Path}");
+            //string requestBody = this.GetPostJson(context);
+            //if (!string.IsNullOrEmpty(requestBody)) stringBuilder.Append($"\n      RequestBody：{requestBody}");
+            stringBuilder.Append($"\n      RequestIPv4：{context.Connection.RemoteIpAddress.MapToIPv4()}");
 
-            this._logger.LogInformation($"{stringBuilder.ToString()}");
+            Console.WriteLine("\n");
+            if (exception != null)
+            {
+                stringBuilder.Append($"\n      Exception：{exception.Message}");
+                this._logger.LogError($"{stringBuilder.ToString()}");
+            }
+            else
+            {
+                this._logger.LogInformation($"{stringBuilder.ToString()}");
+            }
         }
+
+        #region 获取请求参数,并且使用异步
+        /// <summary>
+        /// 获取请求参数,并且使用异步
+        /// </summary>
+        /// <returns></returns>
+        public string GetPostJson(HttpContext context)
+        {
+            string requestBody = String.Empty;
+            long? contentLength = context.Request.ContentLength;
+            if (contentLength != null && contentLength > 0)
+            {
+                using (StreamReader streamReader = new StreamReader(context.Request.Body, Encoding.UTF8))
+                {
+                    requestBody = streamReader.ReadToEndAsync().Result;
+                }
+            }
+            
+            return requestBody;
+        }
+        #endregion
+
     }
 }

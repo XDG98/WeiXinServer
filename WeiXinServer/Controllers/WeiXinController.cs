@@ -22,9 +22,9 @@ namespace WeiXinServer.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet,HttpPost, Route("Main")]
-        public void Main()
+        public string Main()
         {
-            string token = "weixin";
+            string token = AppSettings.GetAppSettings("Token");
             string signature = HttpContext.Request.Query["signature"];
             string timestamp = HttpContext.Request.Query["timestamp"];
             string nonce = HttpContext.Request.Query["nonce"];
@@ -33,7 +33,6 @@ namespace WeiXinServer.Controllers
             #region 加密消息参数
             string msg_signature = HttpContext.Request.Query["msg_signature"];
             string encrypt_type = HttpContext.Request.Query["encrypt_type"];
-            Console.WriteLine($"msg_signature：{msg_signature}，encrypt_type：{encrypt_type}");
             #endregion
 
             if (HttpContext.Request.Method == HttpMethod.Get.Method)
@@ -46,20 +45,25 @@ namespace WeiXinServer.Controllers
 
                 if (sha1TmpStr == signature)
                 {
-                    HttpContext.Response.WriteAsync(echostr);
+                    //HttpContext.Response.WriteAsync(echostr);
+                    return echostr;
                 }
                 else
                 {
-                    HttpContext.Response.WriteAsync("validation failed");
+                    //HttpContext.Response.WriteAsync("validation failed");
+                    return "validation failed";
                 }
                 #endregion
             }
             else if (HttpContext.Request.Method == HttpMethod.Post.Method)
             {
                 #region 接收消息
-                StreamReader reader = new StreamReader(HttpContext.Request.Body, Encoding.UTF8);
-                string xmlData = reader.ReadToEndAsync().Result;
-                Console.WriteLine($"\n接收XML：{xmlData}");
+                string receiveXmlData = String.Empty;
+                using (StreamReader streamReader = new StreamReader(HttpContext.Request.Body, Encoding.UTF8))
+                {
+                    receiveXmlData = streamReader.ReadToEndAsync().Result;
+                }
+                Console.WriteLine($"\n接收XML：\n{receiveXmlData}");
                 #endregion
 
                 #region 解密消息
@@ -68,17 +72,17 @@ namespace WeiXinServer.Controllers
                     string decryptMsg = "";
                     string EncodingAESKey = AppSettings.GetAppSettings("EncodingAESKey");
                     EncryptAndDecrypt.WXBizMsgCrypt(token, EncodingAESKey, AppSettings.GetAppSettings("AppID"));
-                    int code = EncryptAndDecrypt.DecryptMsg(msg_signature, timestamp, nonce, xmlData, ref decryptMsg);
+                    int code = EncryptAndDecrypt.DecryptMsg(msg_signature, timestamp, nonce, receiveXmlData, ref decryptMsg);
                     if (code == 0)
                     {
-                        xmlData = decryptMsg;
+                        receiveXmlData = decryptMsg;
                     }
-                    Console.WriteLine($"\n解密结果：{code}，解密后XML：{xmlData}");
+                    Console.WriteLine($"\n解密结果：{code}\n解密后XML：\n{receiveXmlData}");
                 }
                 #endregion
 
                 #region 格式化xml数据
-                System.Xml.Linq.XElement xml = System.Xml.Linq.XElement.Parse(xmlData);
+                System.Xml.Linq.XElement xml = System.Xml.Linq.XElement.Parse(receiveXmlData);
 
                 //消息接收方
                 string ToUserName = xml.Element("ToUserName").Value.Trim();
@@ -95,35 +99,41 @@ namespace WeiXinServer.Controllers
                 #endregion
 
                 #region 发送消息
-                string content = $@"<xml>
-                                        <ToUserName><![CDATA[{FromUserName}]]></ToUserName>
-                                        <FromUserName><![CDATA[{ToUserName}]]></FromUserName>
-                                        <CreateTime>{CreateTime}</CreateTime>
-                                        <MsgType><![CDATA[{MsgType}]]></MsgType>
-                                        <Content><![CDATA[{Content}]]></Content>
-                                        <MsgId>{MsgId}</MsgId>
-                                    </xml>";
-                Console.WriteLine($"\n发送明文XML：{content}");
+                string sendXmlData = String.Empty;
+                StringBuilder stringBuilder = new StringBuilder();
+                stringBuilder.Append("<xml>");
+                stringBuilder.Append($"<ToUserName><![CDATA[{FromUserName}]]></ToUserName>");
+                stringBuilder.Append($"<FromUserName><![CDATA[{ToUserName}]]></FromUserName>");
+                stringBuilder.Append($"<CreateTime>{CreateTime}</CreateTime>");
+                stringBuilder.Append($"<MsgType><![CDATA[{MsgType}]]></MsgType>");
+                stringBuilder.Append($"<Content><![CDATA[{Content}]]></Content>");
+                stringBuilder.Append($"<MsgId>{MsgId}</MsgId>");
+                stringBuilder.Append("</xml>");
+                sendXmlData = stringBuilder.ToString();
+
+                Console.WriteLine($"\n发送明文XML：\n{sendXmlData}");
                 #endregion
 
                 #region 加密消息
                 if (encrypt_type == "aes")
                 {
                     string encryptMsg = "";
-                    int code = EncryptAndDecrypt.EncryptMsg(content, timestamp, nonce, ref encryptMsg);
+                    int code = EncryptAndDecrypt.EncryptMsg(sendXmlData, timestamp, nonce, ref encryptMsg);
                     if (code == 0)
                     {
-                        content = encryptMsg;
+                        sendXmlData = encryptMsg;
                     }
-                    Console.WriteLine($"\n加密结果：{code}，发送加密XML：{content}");
+                    Console.WriteLine($"\n加密结果：{code}\n发送加密XML：\n{sendXmlData}");
                 }
                 #endregion
 
-                HttpContext.Response.WriteAsync(content);
+                //HttpContext.Response.WriteAsync(sendXmlData);
+                return sendXmlData;
             }
             else
             {
-                HttpContext.Response.WriteAsync("success");
+                //HttpContext.Response.WriteAsync("success");
+                return "success";
             }
         }
         #endregion

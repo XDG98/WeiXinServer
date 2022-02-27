@@ -59,7 +59,7 @@ namespace WeiXinServer.Controllers
             string parameterString = JsonConvert.SerializeObject(sendMessageRequest);
             RespondResult respondResult = HttpRequest.Post(url, parameterString);
 
-            return new SucceedResult(respondResult);
+            return respondResult;
         }
         #endregion
 
@@ -104,7 +104,7 @@ namespace WeiXinServer.Controllers
             string parameterString = JsonConvert.SerializeObject(sendTemplateMessageRequest);
             RespondResult respondResult = HttpRequest.Post(url, parameterString);
 
-            return new SucceedResult(respondResult);
+            return respondResult;
         }
         #endregion
     }

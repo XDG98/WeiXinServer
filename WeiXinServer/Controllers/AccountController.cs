@@ -89,6 +89,7 @@ namespace WeiXinServer.Controllers
 
             RespondResult respondResult = Helper.HttpRequest.Get(url, parameterDic);
             GetApiDomainIPRespond getApiDomainIPRespond = JsonConvert.DeserializeObject<GetApiDomainIPRespond>(respondResult.Data.ToString());
+            if (getApiDomainIPRespond.ip_list == null || getApiDomainIPRespond.ip_list.Count == 0) return respondResult;
 
             return new SucceedResult(getApiDomainIPRespond);
         }
@@ -132,7 +133,7 @@ namespace WeiXinServer.Controllers
                 }
             };
             #endregion
-
+            throw new Exception("e1");
             string parameterString = JsonConvert.SerializeObject(createQRCodeRequest);
             RespondResult respondResult = Helper.HttpRequest.Post(url, parameterString);
             CreateQRCodeRespond createQRCodeRespond = JsonConvert.DeserializeObject<CreateQRCodeRespond>(respondResult.Data.ToString());

@@ -149,7 +149,7 @@ namespace WeiXinServer.Controllers
             string parameterString = JsonConvert.SerializeObject(createMenuRequest);
             RespondResult respondResult = HttpRequest.Post(url, parameterString);
 
-            return new SucceedResult(respondResult);
+            return respondResult;
         }
         #endregion
 
@@ -170,6 +170,7 @@ namespace WeiXinServer.Controllers
 
             RespondResult respondResult = HttpRequest.Get(url, parameterDic);
             GetMenuRespond getMenuRespond = JsonConvert.DeserializeObject<GetMenuRespond>(respondResult.Data.ToString());
+            if (getMenuRespond.menu == null) return respondResult;
 
             return new SucceedResult(getMenuRespond);
         }

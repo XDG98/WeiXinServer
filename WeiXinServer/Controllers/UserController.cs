@@ -45,7 +45,7 @@ namespace WeiXinServer.Controllers
 
             RespondResult respondResult = HttpRequest.Get(url, parameterDic);
             GetFocusUserListRespond getFocusUserListRespond = JsonConvert.DeserializeObject<GetFocusUserListRespond>(respondResult.Data.ToString());
-            if (getFocusUserListRespond == null || getFocusUserListRespond.data == null) return respondResult;
+            if (getFocusUserListRespond == null || getFocusUserListRespond.data == null || getFocusUserListRespond.data.openid.Count == 0) return respondResult;
 
             return new SucceedResult(getFocusUserListRespond);
         }
@@ -63,7 +63,6 @@ namespace WeiXinServer.Controllers
             string url = $"{weiXinApiUrl}/user/info";
 
             #region 添加参数
-            openid = string.IsNullOrEmpty(openid) ? "ovMAV63LUNuLCvoFThakYKNo1DOI" : openid;
             Dictionary<string, string> parameterDic = new Dictionary<string, string>();
             parameterDic.Add("access_token", access_token);
             parameterDic.Add("openid", openid);
@@ -71,7 +70,7 @@ namespace WeiXinServer.Controllers
 
             RespondResult respondResult = HttpRequest.Get(url, parameterDic);
             GetFocusUserInfoRespond getFocusUserInfoRespond = JsonConvert.DeserializeObject<GetFocusUserInfoRespond>(respondResult.Data.ToString());
-            if (string.IsNullOrEmpty(getFocusUserInfoRespond.openid)) return new FailResult("用户不存在");
+            if (string.IsNullOrEmpty(getFocusUserInfoRespond.openid)) return respondResult;
 
             return new SucceedResult(getFocusUserInfoRespond);
         }
